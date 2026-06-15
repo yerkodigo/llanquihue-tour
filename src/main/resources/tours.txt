@@ -1,1 +1,5 @@
-Isla Huar;Calbuco;1200
+Ruta del Salmón y el Volcán;gastronómico;6;45000
+Navegación Lacustre Llanquihue;lacustre;4;32000
+Expedición Cultural Puerto Montt;cultural;8;58000
+Trekking Selva Valdiviana;aventura;5;38000
+Ruta Cervecera Puerto Varas;gastronómico;3;25000
