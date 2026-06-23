@@ -1,16 +1,33 @@
 package com.llanquihuetour.ui;
 
 import com.llanquihuetour.data.GestorDatos;
+import com.llanquihuetour.model.Cliente;
 import com.llanquihuetour.model.Tour;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
+//        mostrarListaTours();
+
+        GestorDatos gestor = new GestorDatos();
+
+        gestor.cargarDesdeExcel("/clientes.xlsx");
+
+        System.out.println("Todos los clientes:");
+        gestor.listarClientes();
+
+        int edad = 18;
+        System.out.println("\nClientes mayores de " + edad + " años:");
+        for (Cliente cliente : gestor.filtrarEdadMayor(edad)) {
+            System.out.println(cliente);
+        }
+    }
+
+    private static void mostrarListaTours() {
         try {
             GestorDatos gestor = new GestorDatos();
             List<Tour> listaTours = gestor.buildToursFromFile();
@@ -47,6 +64,5 @@ public class Main {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
