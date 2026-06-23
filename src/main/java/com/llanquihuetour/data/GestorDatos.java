@@ -1,13 +1,18 @@
 package com.llanquihuetour.data;
 
+import com.llanquihuetour.model.Cliente;
 import com.llanquihuetour.model.Tour;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
 
 public class GestorDatos {
     private static final String NOMBRE_ARCHIVO_TOURS = "/tours.txt";
+    private List<Cliente> clientes = new ArrayList<>();
 
     public GestorDatos() {}
 
@@ -35,4 +40,46 @@ public class GestorDatos {
         }
       return tours;
     };
+
+    public void listarClientes() {
+        for(Cliente c : clientes) {
+            System.out.println(c);
+        }
+    }
+
+    public void cargarDesdeExcel(String ruta) {
+        try (var is = getClass().getResourceAsStream(ruta);
+             XSSFWorkbook libroExcel = new XSSFWorkbook(is)) {
+            XSSFSheet libroSheet = libroExcel.getSheetAt(0);
+
+            DataFormatter formatter = new DataFormatter();
+
+            for (int i = 1; i <= libroSheet.getLastRowNum(); i++) {
+                var row = libroSheet.getRow(i);
+                String nombre =  formatter.formatCellValue(row.getCell(0));
+//                TODO ycortes - validacion de rut para que solo se guarden numeros
+                String rut = formatter.formatCellValue(row.getCell(1));
+                String correo = formatter.formatCellValue(row.getCell(2));
+                int edad = Integer.parseInt(formatter.formatCellValue(row.getCell(3)));
+                cargarAListaClientes(new Cliente(nombre, rut, correo, edad));
+            }
+            libroExcel.close();
+        } catch (Exception e) {
+            System.out.println("Error al cargar archivo de datos. Error: " + e.getMessage());
+        }
+    }
+
+    private void cargarAListaClientes(Cliente cliente) {
+        clientes.add(cliente);
+    }
+
+    public List<Cliente> filtrarEdadMayor(int edad) {
+        List<Cliente> filtrados = new ArrayList<>();
+        for(Cliente c : clientes) {
+            if (c.getEdad() > edad) {
+                filtrados.add(c);
+            }
+        }
+        return filtrados;
+    }
 }
