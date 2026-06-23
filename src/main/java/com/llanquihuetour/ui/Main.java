@@ -17,14 +17,20 @@ public class Main {
 
         gestor.cargarDesdeExcel("/clientes.xlsx");
 
+        System.out.println("*******************************************");
         System.out.println("Todos los clientes:");
+        System.out.println("*******************************************");
         gestor.listarClientes();
+        System.out.println("\n");
 
         int edad = 18;
-        System.out.println("\nClientes mayores de " + edad + " años:");
+        System.out.println("*******************************************");
+        System.out.println("Clientes mayores de " + edad + " años:");
+        System.out.println("*******************************************");
         for (Cliente cliente : gestor.filtrarEdadMayor(edad)) {
-            System.out.println(cliente);
+            System.out.println("Cliente: " + cliente.getNombre() + " con rut: " + cliente.getRut() + " tiene " + cliente.getEdad() + " años.");
         }
+        System.out.println("\n");
     }
 
     private static void mostrarListaTours() {

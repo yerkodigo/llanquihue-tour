@@ -43,7 +43,7 @@ public class GestorDatos {
 
     public void listarClientes() {
         for(Cliente c : clientes) {
-            System.out.println(c);
+            System.out.println("Nombre: " + c.getNombre() + " - Rut: " + c.getRut() + " - Edad: " + c.getEdad());
         }
     }
 
@@ -52,13 +52,20 @@ public class GestorDatos {
              XSSFWorkbook libroExcel = new XSSFWorkbook(is)) {
             XSSFSheet libroSheet = libroExcel.getSheetAt(0);
 
+            // Use DataFormatter de POI para evitar problemas de numeros en celdas del excel. Asi son siempre string
             DataFormatter formatter = new DataFormatter();
 
             for (int i = 1; i <= libroSheet.getLastRowNum(); i++) {
                 var row = libroSheet.getRow(i);
                 String nombre =  formatter.formatCellValue(row.getCell(0));
-//                TODO ycortes - validacion de rut para que solo se guarden numeros
-                String rut = formatter.formatCellValue(row.getCell(1));
+
+                // Limpieza de rut
+                String rutSinFormatear = formatter.formatCellValue(row.getCell(1));
+                String rutLimpio = rutSinFormatear.trim().replace(".", "").replace("-", "");
+                String rutSinDV = rutLimpio.substring(0, rutLimpio.length() -1);
+                String dv = rutLimpio.substring(rutSinDV.length());
+                String rut = rutSinDV + "-" + dv;
+
                 String correo = formatter.formatCellValue(row.getCell(2));
                 int edad = Integer.parseInt(formatter.formatCellValue(row.getCell(3)));
                 cargarAListaClientes(new Cliente(nombre, rut, correo, edad));

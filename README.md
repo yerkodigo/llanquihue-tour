@@ -1,74 +1,95 @@
 ![Duoc UC](https://www.duoc.cl/wp-content/uploads/2022/09/logo-0.png)
-# ☕ Actividad Formativa 3: Construyendo una lista de objetos desde archivo.
+# LlanquihueTourApp
 
 ---
 
-## 👤 Autor del proyecto
-- **Nombre completo:** Yerko Cortes Baeza.
-- **Sección:** I_003A.
-- **Carrera:** Analista Programador Computacional.
+## Autor del proyecto
+- **Nombre completo:** Yerko Cortes Baeza
+- **Sección:** I_003A
+- **Carrera:** Analista Programador Computacional
 - **Sede:** Online
 
 ---
 
-## 📘 Descripción general del sistema
-Este proyecto corresponde a la Actividad Formativa 3 de la asignatura Programación Orientada a Objetos I. Se trata de una aplicación de consola que lee un archivo de texto (`tours.txt`) para construir una lista de objetos `Tour` en memoria. Una vez cargada la lista, el sistema la recorre para mostrar todos los tours disponibles y aplica filtros para obtener subconjuntos según criterios específicos: tours económicos (precio menor a $40.000) y tours de tipo gastronómico.
+## Descripción general del sistema
+
+LlanquihueTourApp es una aplicación de consola desarrollada en Java para la agencia de turismo **Llanquihue Tour**, ubicada en la Región de Los Lagos. El sistema permite gestionar tours, clientes y reservas mediante la carga de datos desde archivos externos, aplicando operaciones de recorrido, filtrado y visualización por consola.
+
+El proyecto aplica principios de Programación Orientada a Objetos como encapsulamiento, composición entre clases y organización modular en paquetes funcionales.
 
 ---
 
-## 🧱 Estructura general del proyecto
+## Paquetes y clases implementadas
 
 ```plaintext
-📁 src/main/java/com/llanquihuetour/
-├── ui/
-│   └── Main.java             # Punto de entrada de la aplicación (método main)
+src/main/java/com/llanquihuetour/
+├── model/
+│   ├── Tour.java        # Modela un tour con nombre, tipo, duración y precio
+│   ├── Cliente.java     # Modela un cliente con nombre, RUT, correo y edad
+│   └── Reserva.java     # Modela una reserva; tiene composición con Tour y Cliente
 ├── data/
-│   └── GestorDatos.java      # Lee tours.txt y construye la lista de Tour
-└── model/
-    └── Tour.java             # Clase que modela un tour con nombre, tipo, duración y precio
+│   └── GestorDatos.java # Carga datos desde archivos externos y gestiona colecciones
+└── ui/
+    └── Main.java        # Punto de entrada; orquesta la carga, filtrado y visualización
 
-📁 src/main/resources/
-└── tours.txt                 # Archivo de datos con los tours en formato CSV (;)
+src/main/resources/
+├── tours.txt            # Datos de tours en formato CSV separado por ;
+└── clientes.xlsx        # Datos de clientes en formato Excel (.xlsx)
+```
+
+### Relaciones entre clases
+
+`Reserva` aplica **composición** con `Tour` y `Cliente`: una reserva contiene una instancia de cada una, reflejando que un cliente reserva un tour específico.
+
+```
+Reserva
+ ├── cliente: Cliente
+ └── tour: Tour
 ```
 
 ---
 
-## 🗂️ Formato del archivo de datos
+## Archivos de datos
 
-Cada línea de `tours.txt` representa un tour con el siguiente formato separado por `;`:
-
+**tours.txt** — formato CSV separado por `;`:
 ```
 nombre;tipo;duracionHoras;precio
-```
-
-**Ejemplo:**
-```
 Ruta del Salmón y el Volcán;gastronómico;6;45000
 Navegación Lacustre Llanquihue;lacustre;4;32000
 ```
 
+**clientes.xlsx** — archivo Excel con columnas:
+```
+nombre | rut | correo | edad
+```
+
 ---
 
-## ⚙️ Instrucciones para clonar y ejecutar el proyecto
+## Instrucciones para ejecutar el proyecto
 
-1. Clona el repositorio desde GitHub:
+### Opción 1 — Desde IntelliJ IDEA
 
+1. Clona el repositorio:
 ```bash
 git clone https://github.com/yerkodigo/llanquihue-tour.git
 ```
-
 2. Abre el proyecto en IntelliJ IDEA.
+3. Ejecuta la clase `Main.java` ubicada en el paquete `ui`.
 
-3. Ejecuta el archivo `Main.java` desde el paquete `ui`.
+### Opción 2 — Desde el archivo JAR
 
-4. Visualiza en consola la lista completa de tours, los tours económicos y los tours gastronómicos.
+En la carpeta `target/` se incluye el JAR ejecutable con todas las dependencias:
+
+```bash
+java -jar LlanquhueTourApp-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
 
 ---
 
 **Repositorio GitHub:** https://github.com/yerkodigo/llanquihue-tour
 <br>
-**Fecha de entrega:** 15/06/2026
+**Fecha de entrega:** 22/06/2026
 
 ---
 
-© Duoc UC | Escuela de Informática y Telecomunicaciones | Actividad Formativa 3
+© Duoc UC | Escuela de Informática y Telecomunicaciones | Actividad Sumativa Semana 5

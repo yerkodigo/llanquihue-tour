@@ -2,6 +2,9 @@ package com.llanquihuetour.model;
 
 import java.time.LocalDate;
 
+/**
+ *  Modela una reserva. Tiene composición con Tour y Cliente
+ */
 public class Reserva {
     private Cliente cliente;
     private Tour tour;

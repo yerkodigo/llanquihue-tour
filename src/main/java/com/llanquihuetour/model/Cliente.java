@@ -1,5 +1,8 @@
 package com.llanquihuetour.model;
 
+/**
+ * Modela un cliente con nombre, RUT, correo y edad
+ */
 public class Cliente {
     private String nombre;
     private String rut;
