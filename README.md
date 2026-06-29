@@ -13,9 +13,9 @@
 
 ## Descripción general del sistema
 
-LlanquihueTourApp es una aplicación de consola desarrollada en Java para la agencia de turismo **Llanquihue Tour**, ubicada en la Región de Los Lagos. El sistema permite gestionar tours, clientes y reservas mediante la carga de datos desde archivos externos, aplicando operaciones de recorrido, filtrado y visualización por consola.
+LlanquihueTourApp es una aplicación de consola desarrollada en Java para la agencia de turismo **Llanquihue Tour**, ubicada en la Región de Los Lagos. El sistema permite gestionar servicios turísticos, clientes y reservas mediante la carga de datos desde archivos externos, aplicando operaciones de recorrido, filtrado y visualización por consola.
 
-El proyecto aplica principios de Programación Orientada a Objetos como encapsulamiento, composición entre clases y organización modular en paquetes funcionales.
+El proyecto aplica principios de Programación Orientada a Objetos como encapsulamiento, composición, **herencia** y organización modular en paquetes funcionales.
 
 ---
 
@@ -24,20 +24,36 @@ El proyecto aplica principios de Programación Orientada a Objetos como encapsul
 ```plaintext
 src/main/java/com/llanquihuetour/
 ├── model/
-│   ├── Tour.java        # Modela un tour con nombre, tipo, duración y precio
-│   ├── Cliente.java     # Modela un cliente con nombre, RUT, correo y edad
-│   └── Reserva.java     # Modela una reserva; tiene composición con Tour y Cliente
+│   ├── ServicioTuristico.java  # Clase base con nombre y duracionHoras
+│   ├── ExcursionCultural.java  # Subclase; agrega lugarHistorico
+│   ├── PaseoLacustre.java      # Subclase; agrega tipoEmbarcacion
+│   ├── RutaGastronomica.java   # Subclase; agrega numeroDeParadas
+│   ├── Tour.java               # Modela un tour con nombre, tipo, duración y precio
+│   ├── Cliente.java            # Modela un cliente con nombre, RUT, correo y edad
+│   └── Reserva.java            # Modela una reserva; tiene composición con Tour y Cliente
 ├── data/
-│   └── GestorDatos.java # Carga datos desde archivos externos y gestiona colecciones
+│   ├── GestorDatos.java        # Carga datos desde archivos externos y gestiona colecciones
+│   └── GestorServicios.java    # Crea instancias de los servicios turísticos para demostración
 └── ui/
-    └── Main.java        # Punto de entrada; orquesta la carga, filtrado y visualización
+    └── Main.java               # Punto de entrada; orquesta la carga, filtrado y visualización
 
 src/main/resources/
 ├── tours.txt            # Datos de tours en formato CSV separado por ;
 └── clientes.xlsx        # Datos de clientes en formato Excel (.xlsx)
 ```
 
-### Relaciones entre clases
+### Jerarquía de herencia — ServicioTuristico
+
+`ServicioTuristico` es la clase base. Las tres subclases extienden sus atributos comunes con información específica de cada tipo de servicio.
+
+```
+ServicioTuristico
+ ├── ExcursionCultural  → lugarHistorico: String
+ ├── PaseoLacustre      → tipoEmbarcacion: String
+ └── RutaGastronomica   → numeroDeParadas: int
+```
+
+### Relaciones entre clases — Reserva
 
 `Reserva` aplica **composición** con `Tour` y `Cliente`: una reserva contiene una instancia de cada una, reflejando que un cliente reserva un tour específico.
 
@@ -92,4 +108,4 @@ java -jar LlanquhueTourApp-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 ---
 
-© Duoc UC | Escuela de Informática y Telecomunicaciones | Actividad Sumativa Semana 5
+© Duoc UC | Escuela de Informática y Telecomunicaciones | Actividad Sumativa Semana 6
