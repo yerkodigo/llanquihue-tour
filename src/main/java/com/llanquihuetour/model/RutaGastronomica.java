@@ -10,8 +10,8 @@ public class RutaGastronomica extends ServicioTuristico {
 
     @Override
     public String toString() {
-        return "RutaGastronomica{" +
-                "numeroDeParadas=" + numeroDeParadas +
-                "} " + super.toString();
+        return "RutaGastronomica. " +
+                "numeroDeParadas: " + numeroDeParadas +
+                ", " + super.toString();
     }
 }

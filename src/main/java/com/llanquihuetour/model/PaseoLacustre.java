@@ -3,10 +3,6 @@ package com.llanquihuetour.model;
 public class PaseoLacustre extends ServicioTuristico {
     private String tipoEmbarcacion;
 
-    public PaseoLacustre(String tipoEmbarcacion) {
-        this.tipoEmbarcacion = tipoEmbarcacion;
-    }
-
     public PaseoLacustre(String nombre, int duracionHoras, String tipoEmbarcacion) {
         super(nombre, duracionHoras);
         this.tipoEmbarcacion = tipoEmbarcacion;
@@ -14,8 +10,8 @@ public class PaseoLacustre extends ServicioTuristico {
 
     @Override
     public String toString() {
-        return "PaseoLacustre{" +
-                "tipoEmbarcacion='" + tipoEmbarcacion + '\'' +
-                "} " + super.toString();
+        return "PaseoLacustre. " +
+                "tipoEmbarcacion: '" + tipoEmbarcacion + '\'' +
+                ", " + super.toString();
     }
 }

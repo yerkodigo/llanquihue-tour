@@ -29,9 +29,6 @@ public class ServicioTuristico {
 
     @Override
     public String toString() {
-        return "ServicioTuristico{" +
-                "nombre='" + nombre + '\'' +
-                ", duracionHoras=" + duracionHoras +
-                '}';
+        return "ServicioTuristico: " + "nombre: '" + nombre + '\'' + ", duracionHoras: " + duracionHoras;
     }
 }
