@@ -1,7 +1,9 @@
 package com.llanquihuetour.ui;
 
 import com.llanquihuetour.data.GestorDatos;
+import com.llanquihuetour.data.GestorServicios;
 import com.llanquihuetour.model.Cliente;
+import com.llanquihuetour.model.ServicioTuristico;
 import com.llanquihuetour.model.Tour;
 
 import java.io.FileNotFoundException;
@@ -12,7 +14,22 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 //        mostrarListaTours();
+        // Encargo de semana 05
+//        visualizacionDeClientes();
 
+        List<ServicioTuristico> instancias = GestorServicios.pruebaDeInstancias();
+
+        if (!instancias.isEmpty()) {
+            System.out.println("*******************************************");
+            System.out.println("Semana 06 - Instancias: ");
+            System.out.println("*******************************************");
+            instancias.forEach(e -> {
+                System.out.println(e.toString());
+            });
+        }
+    }
+
+    private static void visualizacionDeClientes() {
         GestorDatos gestor = new GestorDatos();
 
         gestor.cargarDesdeExcel("/clientes.xlsx");
