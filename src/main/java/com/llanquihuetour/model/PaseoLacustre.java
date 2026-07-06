@@ -9,6 +9,14 @@ public class PaseoLacustre extends ServicioTuristico {
     }
 
     @Override
+    public String mostrarInformacion() {
+        return "PaseoLacustre. " +
+                "nombre: " + getNombre() +
+                ", duracionHoras: " + getDuracionHoras() +
+                ", tipoEmbarcacion: '" + tipoEmbarcacion + "'";
+    }
+
+    @Override
     public String toString() {
         return "PaseoLacustre. " +
                 "tipoEmbarcacion: '" + tipoEmbarcacion + '\'' +

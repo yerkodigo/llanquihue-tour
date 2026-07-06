@@ -9,6 +9,14 @@ public class ExcursionCultural extends ServicioTuristico {
     }
 
     @Override
+    public String mostrarInformacion() {
+        return "ExcursionCultural. " +
+                "nombre: " + getNombre() +
+                ", duracionHoras: " + getDuracionHoras() +
+                ", lugarHistorico: '" + lugarHistorico + "'";
+    }
+
+    @Override
     public String toString() {
         return "ExcursionCultural. " +
                 "lugarHistorico: '" + lugarHistorico + '\'' +
