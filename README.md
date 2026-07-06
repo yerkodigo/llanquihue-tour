@@ -24,10 +24,10 @@ El proyecto aplica principios de Programación Orientada a Objetos como encapsul
 ```plaintext
 src/main/java/com/llanquihuetour/
 ├── model/
-│   ├── ServicioTuristico.java  # Clase base con nombre y duracionHoras
-│   ├── ExcursionCultural.java  # Subclase; agrega lugarHistorico
-│   ├── PaseoLacustre.java      # Subclase; agrega tipoEmbarcacion
-│   ├── RutaGastronomica.java   # Subclase; agrega numeroDeParadas
+│   ├── ServicioTuristico.java  # Clase base con nombre y duracionHoras; expone getNombre() y getDuracionHoras()
+│   ├── ExcursionCultural.java  # Subclase; agrega lugarHistorico; sobreescribe mostrarInformacion()
+│   ├── PaseoLacustre.java      # Subclase; agrega tipoEmbarcacion; sobreescribe mostrarInformacion()
+│   ├── RutaGastronomica.java   # Subclase; agrega numeroDeParadas; sobreescribe mostrarInformacion()
 │   ├── Tour.java               # Modela un tour con nombre, tipo, duración y precio
 │   ├── Cliente.java            # Modela un cliente con nombre, RUT, correo y edad
 │   └── Reserva.java            # Modela una reserva; tiene composición con Tour y Cliente
@@ -44,7 +44,7 @@ src/main/resources/
 
 ### Jerarquía de herencia — ServicioTuristico
 
-`ServicioTuristico` es la clase base. Las tres subclases extienden sus atributos comunes con información específica de cada tipo de servicio.
+`ServicioTuristico` es la clase base. Las tres subclases extienden sus atributos comunes con información específica de cada tipo de servicio. Cada subclase sobreescribe `mostrarInformacion()` accediendo directamente a los atributos del padre mediante los getters `getNombre()` y `getDuracionHoras()`.
 
 ```
 ServicioTuristico
@@ -108,4 +108,4 @@ java -jar LlanquhueTourApp-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 ---
 
-© Duoc UC | Escuela de Informática y Telecomunicaciones | Actividad Sumativa Semana 6
+© Duoc UC | Escuela de Informática y Telecomunicaciones | Actividad Sumativa Semana 7
