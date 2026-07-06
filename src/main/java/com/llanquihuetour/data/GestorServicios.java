@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestorServicios {
+
     public static List<ServicioTuristico> pruebaDeInstancias() {
         List<ServicioTuristico> lista = new ArrayList<>();
 
@@ -31,5 +32,19 @@ public class GestorServicios {
         lista.add(excursion2);
 
         return lista;
+    }
+
+    public static List<ServicioTuristico> cargaDeServiciosTuristicos() {
+        List<ServicioTuristico> serviciosTuristicos = new ArrayList<>();
+
+        RutaGastronomica ruta1 = new RutaGastronomica("Ruta del Queso", 7, 3);
+        PaseoLacustre paseo1 = new PaseoLacustre("La isla", 3, "Bote");
+        ExcursionCultural excursion1 = new ExcursionCultural("La iglesia", 7, "Parroquia San Jose");
+
+        serviciosTuristicos.add(ruta1);
+        serviciosTuristicos.add(paseo1);
+        serviciosTuristicos.add(excursion1);
+
+        return serviciosTuristicos;
     }
 }

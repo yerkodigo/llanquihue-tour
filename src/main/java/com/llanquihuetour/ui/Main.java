@@ -17,16 +17,22 @@ public class Main {
         // Encargo de semana 05
 //        visualizacionDeClientes();
 
-        List<ServicioTuristico> instancias = GestorServicios.pruebaDeInstancias();
+        // Semana 06
+//        List<ServicioTuristico> instancias = GestorServicios.pruebaDeInstancias();
+//        if (!instancias.isEmpty()) {
+//            System.out.println("*******************************************");
+//            System.out.println("Semana 06 - Instancias: ");
+//            System.out.println("*******************************************");
+//            instancias.forEach(e -> {
+//                System.out.println(e.toString());
+//            });
+//        }
 
-        if (!instancias.isEmpty()) {
-            System.out.println("*******************************************");
-            System.out.println("Semana 06 - Instancias: ");
-            System.out.println("*******************************************");
-            instancias.forEach(e -> {
-                System.out.println(e.toString());
-            });
-        }
+        // Semana 07
+        System.out.println("*******************************************");
+        System.out.println("Semana 07: ");
+        System.out.println("*******************************************");
+        verListaServicios();
     }
 
     private static void visualizacionDeClientes() {
@@ -86,6 +92,14 @@ public class Main {
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private static void verListaServicios() {
+        List<ServicioTuristico> servicios = GestorServicios.cargaDeServiciosTuristicos();
+
+        for (ServicioTuristico servicio : servicios) {
+            System.out.println(servicio.mostrarInformacion());
         }
     }
 }
