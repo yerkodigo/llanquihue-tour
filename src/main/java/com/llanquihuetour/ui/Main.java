@@ -1,12 +1,16 @@
 package com.llanquihuetour.ui;
 
 import com.llanquihuetour.data.GestorDatos;
+import com.llanquihuetour.data.GestorEntidades;
 import com.llanquihuetour.data.GestorServicios;
 import com.llanquihuetour.model.Cliente;
+import com.llanquihuetour.model.Registrable;
 import com.llanquihuetour.model.ServicioTuristico;
 import com.llanquihuetour.model.Tour;
 
+import javax.swing.JOptionPane;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -29,10 +33,94 @@ public class Main {
 //        }
 
         // Semana 07
-        System.out.println("*******************************************");
-        System.out.println("Semana 07: ");
-        System.out.println("*******************************************");
-        verListaServicios();
+//        System.out.println("*******************************************");
+//        System.out.println("Semana 07: ");
+//        System.out.println("*******************************************");
+//        verListaServicios();
+
+        // Semana 08
+        iniciarInterfazGrafica();
+
+        // Paso 2
+        ArrayList<Registrable> entidades = GestorEntidades.cargarEntidades();
+        GestorEntidades.mostrarResumenEntidades(entidades);
+    }
+
+    private static void iniciarInterfazGrafica() {
+        List<Registrable> entidades = new ArrayList<>();
+        String[] opciones = {"Registrar Cliente", "Registrar Tour", "Mostrar Resumen", "Salir"};
+        int opcion;
+
+        do {
+            opcion = JOptionPane.showOptionDialog(
+                    null,
+                    "Seleccione una opción:",
+                    "Llanquihue Tour App",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    opciones,
+                    opciones[0]
+            );
+
+            switch (opcion) {
+                case 0 -> registrarCliente(entidades);
+                case 1 -> registrarTour(entidades);
+                case 2 -> mostrarResumenEntidades(entidades);
+                default -> { }
+            }
+        } while (opcion != 3 && opcion != JOptionPane.CLOSED_OPTION);
+    }
+
+    private static void registrarCliente(List<Registrable> entidades) {
+        String nombre = JOptionPane.showInputDialog("Nombre del cliente:");
+        if (nombre == null) return;
+
+        String rut = JOptionPane.showInputDialog("RUT del cliente:");
+        String correo = JOptionPane.showInputDialog("Correo del cliente:");
+        String edadTexto = JOptionPane.showInputDialog("Edad del cliente:");
+
+        try {
+            int edad = Integer.parseInt(edadTexto);
+            Cliente cliente = new Cliente(nombre, rut, correo, edad);
+            entidades.add(cliente);
+            JOptionPane.showMessageDialog(null, "Cliente registrado:\n" + cliente.mostrarResumen());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "La edad ingresada no es válida.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private static void registrarTour(List<Registrable> entidades) {
+        String nombre = JOptionPane.showInputDialog("Nombre del tour:");
+        if (nombre == null) return;
+
+        String tipo = JOptionPane.showInputDialog("Tipo del tour (ej: gastronómico, aventura):");
+        String duracionTexto = JOptionPane.showInputDialog("Duración en horas:");
+        String precioTexto = JOptionPane.showInputDialog("Precio del tour:");
+
+        try {
+            int duracionHoras = Integer.parseInt(duracionTexto);
+            double precio = Double.parseDouble(precioTexto);
+            Tour tour = new Tour(nombre, tipo, duracionHoras, precio);
+            entidades.add(tour);
+            JOptionPane.showMessageDialog(null, "Tour registrado:\n" + tour.mostrarResumen());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "La duración o el precio ingresados no son válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private static void mostrarResumenEntidades(List<Registrable> entidades) {
+        if (entidades.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Aún no hay entidades registradas.");
+            return;
+        }
+
+        StringBuilder resumen = new StringBuilder();
+        for (Registrable entidad : entidades) {
+            resumen.append(entidad.mostrarResumen()).append("\n");
+        }
+
+        JOptionPane.showMessageDialog(null, resumen.toString(), "Resumen de entidades", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private static void visualizacionDeClientes() {
