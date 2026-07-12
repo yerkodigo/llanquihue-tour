@@ -3,7 +3,7 @@ package com.llanquihuetour.model;
 /**
  * Tour que el cliente compra como Ruta gastronómica, excursión, etc. Incluyendo caracteristicas del tour como tipo, la duración y el precio.
  */
-public class Tour {
+public class Tour implements Registrable {
     private String nombre;
     private String tipo;
     private int duracionHoras;
@@ -58,5 +58,10 @@ public class Tour {
                 "Valor: $" + precio + " - " +
                 "Tipo: " + tipo + " - " +
                 "Duración: " + duracionHoras + "hrs";
+    }
+
+    @Override
+    public String mostrarResumen() {
+        return "Nombre: " + this.nombre + ", Tipo: " + this.tipo + ", Duración: " + this.duracionHoras + "hrs, Precio: $" + this.precio;
     }
 }

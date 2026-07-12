@@ -3,7 +3,7 @@ package com.llanquihuetour.model;
 /**
  * Modela un cliente con nombre, RUT, correo y edad
  */
-public class Cliente {
+public class Cliente implements Registrable {
     private String nombre;
     private String rut;
     private String correo;
@@ -39,5 +39,10 @@ public class Cliente {
                 ", correo='" + correo + '\'' +
                 ", edad=" + edad +
                 '}';
+    }
+
+    @Override
+    public String mostrarResumen() {
+        return "Nombre: " + this.nombre + ", RUT: " + this.rut + ", Correo: " + this.correo + ", Edad: " + this.edad;
     }
 }

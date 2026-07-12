@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  *  Modela una reserva. Tiene composición con Tour y Cliente
  */
-public class Reserva {
+public class Reserva implements Registrable {
     private Cliente cliente;
     private Tour tour;
     private LocalDate fechaReserva;
@@ -26,5 +26,10 @@ public class Reserva {
                 ", tour=" + tour +
                 ", fechaReserva=" + fechaReserva +
                 '}';
+    }
+
+    @Override
+    public String mostrarResumen() {
+        return "Cliente: " + this.cliente.mostrarResumen() + ", Tour: " + this.tour.mostrarResumen() + ", Fecha de Reserva: " + this.fechaReserva;
     }
 }

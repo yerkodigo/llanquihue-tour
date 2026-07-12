@@ -1,6 +1,6 @@
 package com.llanquihuetour.model;
 
-public class ServicioTuristico {
+public class ServicioTuristico implements Registrable {
     private String nombre;
     private int duracionHoras;
 
@@ -26,5 +26,10 @@ public class ServicioTuristico {
     @Override
     public String toString() {
         return "ServicioTuristico: " + "nombre: '" + nombre + '\'' + ", duracionHoras: " + duracionHoras;
+    }
+
+    @Override
+    public String mostrarResumen() {
+        return "Nombre: " + this.nombre + ", Duración Horas: " + this.duracionHoras;
     }
 }

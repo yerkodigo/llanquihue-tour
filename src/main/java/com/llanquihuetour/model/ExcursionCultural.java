@@ -22,4 +22,9 @@ public class ExcursionCultural extends ServicioTuristico {
                 "lugarHistorico: '" + lugarHistorico + '\'' +
                 ", " + super.toString();
     }
+
+    @Override
+    public String mostrarResumen() {
+        return "Excursión Cultural: " + getNombre() + " en " + lugarHistorico + " (" + getDuracionHoras() + " horas)";
+    }
 }

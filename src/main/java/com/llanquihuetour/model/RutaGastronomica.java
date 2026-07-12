@@ -22,4 +22,9 @@ public class RutaGastronomica extends ServicioTuristico {
                 "numeroDeParadas: " + numeroDeParadas +
                 ", " + super.toString();
     }
+
+    @Override
+    public String mostrarResumen() {
+        return "Ruta Gastronómica: " + getNombre() + " con " + numeroDeParadas + " paradas (" + getDuracionHoras() + " horas)";
+    }
 }
