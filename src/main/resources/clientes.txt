@@ -1,0 +1,5 @@
+Camila Soto Reyes;15678234-3;camila.soto@correo.cl;28;Calle Bulnes;245;Llanquihue;Llanquihue;5610000
+Matías Fernández Vidal;18923456-2;matias.fernandez@correo.cl;34;Avenida Vicente Pérez Rosales;1120;Puerto Varas;Puerto Varas;5550000
+Francisca Muñoz López;14567890-0;francisca.munoz@correo.cl;12;Calle Antonio Varas;875;Puerto Montt;Puerto Montt;5480000
+Sebastián Contreras Ríos;19234567-7;sebastian.contreras@correo.cl;22;Calle Prat;330;Frutillar;Frutillar;5560000
+Valentina Rojas Silva;16789012-1;valentina.rojas@correo.cl;10;Avenida Diego Portales;512;Osorno;Osorno;5290000

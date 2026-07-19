@@ -1,0 +1,5 @@
+Marcela Torres Uribe;15987654-3;marcela.torres@llanquihuetour.cl;50;Hostal Volcán Osorno
+Ignacio Delgado Reyes;18234567-9;ignacio.delgado@llanquihuetour.cl;38;Cabañas Lago Azul
+Fernanda Cuevas Bahamonde;16098765-0;fernanda.cuevas@llanquihuetour.cl;42;Hotel Ribera del Lago
+Tomás Naguelquín Vidal;14765432-4;tomas.naguelquin@llanquihuetour.cl;35;Refugio Los Lagos
+Josefa Aguilar Miranda;17654321-3;josefa.aguilar@llanquihuetour.cl;29;Cabañas El Bosque

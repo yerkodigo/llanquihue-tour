@@ -1,0 +1,5 @@
+Luis Barría Cárdenas;16543210-K;luis.barria@llanquihuetour.cl;48;Minibús
+Paula Igor Aguayo;14321098-7;paula.igor@llanquihuetour.cl;31;Van
+Héctor Mansilla Ojeda;17890123-0;hector.mansilla@llanquihuetour.cl;52;Bus
+Daniela Ancapán Huenul;13456789-9;daniela.ancapan@llanquihuetour.cl;26;Van
+Jorge Paredes Almonacid;19012345-6;jorge.paredes@llanquihuetour.cl;44;Bus

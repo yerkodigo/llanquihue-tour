@@ -1,0 +1,5 @@
+Pedro Alarcón Vásquez;17345678-6;pedro.alarcon@llanquihuetour.cl;41;Español
+Karen Bravo Toledo;12987654-9;karen.bravo@llanquihuetour.cl;29;Inglés
+Rodrigo Sepúlveda Cid;19876543-0;rodrigo.sepulveda@llanquihuetour.cl;36;Alemán
+Antonia Vergara Paredes;15432109-8;antonia.vergara@llanquihuetour.cl;27;Portugués
+Cristóbal Yáñez Molina;18765432-7;cristobal.yanez@llanquihuetour.cl;33;Inglés
