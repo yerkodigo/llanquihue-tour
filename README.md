@@ -13,7 +13,7 @@
 
 ## Descripción general del sistema
 
-LlanquihueTourApp es una aplicación desarrollada en Java para la agencia de turismo **Llanquihue Tour**, ubicada en la Región de Los Lagos. El sistema permite gestionar servicios turísticos, clientes y tours mediante la carga de datos desde archivos externos y el registro manual desde una interfaz gráfica, aplicando operaciones de recorrido, filtrado y visualización.
+LlanquihueTourApp es una aplicación desarrollada en Java para la agencia de turismo **Llanquihue Tour**, ubicada en la Región de Los Lagos. El sistema permite gestionar clientes, guías turísticos, operadores de transporte, proveedores de alojamiento y tours, cargando los datos desde archivos `.txt` y permitiendo registrar nuevos clientes, listar cada tipo de entidad y filtrar clientes por edad, todo mediante una interfaz gráfica basada en `JOptionPane`.
 
 El proyecto aplica principios de Programación Orientada a Objetos como encapsulamiento, composición, **herencia**, **interfaces** y **polimorfismo**, además de una organización modular en paquetes funcionales.
 
@@ -24,82 +24,96 @@ El proyecto aplica principios de Programación Orientada a Objetos como encapsul
 ```plaintext
 src/main/java/com/llanquihuetour/
 ├── model/
-│   ├── Registrable.java        # Interfaz; define el contrato mostrarResumen()
-│   ├── ServicioTuristico.java  # Clase base con nombre y duracionHoras; implementa Registrable
-│   ├── ExcursionCultural.java  # Subclase; agrega lugarHistorico; sobreescribe mostrarInformacion() y mostrarResumen()
-│   ├── PaseoLacustre.java      # Subclase; agrega tipoEmbarcacion; sobreescribe mostrarInformacion() y mostrarResumen()
-│   ├── RutaGastronomica.java   # Subclase; agrega numeroDeParadas; sobreescribe mostrarInformacion() y mostrarResumen()
-│   ├── Tour.java               # Modela un tour con nombre, tipo, duración y precio; implementa Registrable
-│   ├── Cliente.java            # Modela un cliente con nombre, RUT, correo y edad; implementa Registrable
-│   └── Reserva.java            # Modela una reserva; tiene composición con Tour y Cliente
+│   ├── IRegistrable.java        # Interfaz; define el contrato mostrarResumen()
+│   ├── Persona.java             # Clase base: nombre, Rut, correo, edad y Direccion (opcional)
+│   ├── Rut.java                 # Encapsula número + dígito verificador; valida con RutException
+│   ├── Direccion.java           # calle, número, comuna, ciudad, código postal (compuesta en Persona)
+│   ├── Cliente.java             # extends Persona, implements IRegistrable
+│   ├── GuiaTuristico.java       # extends Persona, implements IRegistrable; agrega idioma
+│   ├── OperadorTransporte.java  # extends Persona, implements IRegistrable; agrega tipoVehiculo
+│   ├── ProveedorAlojamiento.java # extends Persona, implements IRegistrable; agrega nombreAlojamiento
+│   └── Tour.java                # implements IRegistrable; nombre, tipo, duracionHoras, precio
+├── exceptions/
+│   └── RutException.java        # Excepción personalizada para RUTs con formato o dígito verificador inválido
 ├── data/
-│   ├── GestorDatos.java        # Carga datos desde archivos externos y gestiona colecciones
-│   ├── GestorServicios.java    # Crea instancias de los servicios turísticos para demostración
-│   └── GestorEntidades.java    # Arma y recorre una ArrayList<Registrable> con objetos de distintas clases
+│   └── GestorCargasTxt.java     # Carga los .txt de resources, arma un ArrayList<IRegistrable> único y expone filtros por tipo
 └── ui/
-    └── Main.java               # Punto de entrada; orquesta la carga, filtrado, visualización e interfaz gráfica
+    └── Main.java                # Punto de entrada; menú gráfico con JOptionPane
 
 src/main/resources/
-├── tours.txt            # Datos de tours en formato CSV separado por ;
-└── clientes.xlsx        # Datos de clientes en formato Excel (.xlsx)
+├── alojamientos.txt   # nombre;rut;correo;edad;nombreAlojamiento
+├── clientes.txt        # nombre;rut;correo;edad;calle;numero;comuna;ciudad;codigoPostal (la dirección es opcional)
+├── guias.txt            # nombre;rut;correo;edad;idioma
+├── operadores.txt       # nombre;rut;correo;edad;tipoVehiculo
+└── tours.txt             # nombre;tipo;duracionHoras;precio
 ```
 
-### Jerarquía de herencia — ServicioTuristico
+### Jerarquía de herencia — Persona
 
-`ServicioTuristico` es la clase base. Las tres subclases extienden sus atributos comunes con información específica de cada tipo de servicio. Cada subclase sobreescribe `mostrarInformacion()` accediendo directamente a los atributos del padre mediante los getters `getNombre()` y `getDuracionHoras()`.
-
-```
-ServicioTuristico
- ├── ExcursionCultural  → lugarHistorico: String
- ├── PaseoLacustre      → tipoEmbarcacion: String
- └── RutaGastronomica   → numeroDeParadas: int
-```
-
-### Relaciones entre clases — Reserva
-
-`Reserva` aplica **composición** con `Tour` y `Cliente`: una reserva contiene una instancia de cada una, reflejando que un cliente reserva un tour específico.
+`Persona` es la clase base con los atributos comunes a toda persona del sistema. Cada subclase agrega su propio atributo específico y sobreescribe `toString()` y `mostrarResumen()`.
 
 ```
-Reserva
- ├── cliente: Cliente
- └── tour: Tour
+Persona
+ ├── Cliente               → (sin atributos adicionales)
+ ├── GuiaTuristico          → idioma: String
+ ├── OperadorTransporte     → tipoVehiculo: String
+ └── ProveedorAlojamiento   → nombreAlojamiento: String
 ```
 
-### Interfaz `Registrable` y polimorfismo
+### Composición — Persona, Rut y Direccion
 
-`Registrable` define el contrato `mostrarResumen()`. La implementan clases sin relación de herencia entre sí, lo que permite tratarlas de forma polimórfica en una misma colección:
+`Persona` se compone de un `Rut` (validado al construirse, lanza `RutException` si el dígito verificador no corresponde) y, opcionalmente, de una `Direccion`. Si el archivo `.txt` de origen no trae los campos de dirección, el `Cliente` se crea igualmente con `direccion = null`, y se muestra como "Sin dirección" en los listados.
 
-```
-Registrable (interfaz)
- ├── ServicioTuristico  → mostrarResumen() (heredado y sobreescrito por sus 3 subclases)
- ├── Cliente            → mostrarResumen()
- └── Tour                → mostrarResumen()
-```
+### Interfaz `IRegistrable` y polimorfismo
 
-`GestorEntidades` arma una `ArrayList<Registrable>` con objetos de estas distintas clases, la recorre con `for-each` y usa **pattern matching para `instanceof`** (`entidad instanceof Cliente cliente`) para aplicar lógica diferenciada según el tipo real de cada objeto.
+`IRegistrable` define el contrato `mostrarResumen()`. La implementan `Cliente`, `GuiaTuristico`, `OperadorTransporte`, `ProveedorAlojamiento` y `Tour`, clases sin relación de herencia directa entre sí (salvo las 4 primeras que comparten `Persona`), lo que permite tratarlas de forma polimórfica en una misma colección `List<IRegistrable>`.
+
+`GestorCargasTxt` mantiene internamente un único `ArrayList<IRegistrable>` con todas las entidades cargadas, y expone métodos que lo recorren con **pattern matching para `instanceof`** (`registrable instanceof Cliente cliente`) para filtrar por tipo real de objeto.
 
 ### Interfaz gráfica (GUI)
 
-`Main.java` levanta un menú simple con `JOptionPane` que permite:
-- Registrar un `Cliente` o un `Tour` ingresando sus datos por cuadros de diálogo.
-- Ver un resumen de todas las entidades registradas, mostrando el resultado de `mostrarResumen()` de cada una.
+`Main.java` levanta un menú con `JOptionPane` que permite:
+- **Registrar Cliente**: ingresa los datos por cuadros de diálogo; si el RUT es inválido, muestra el error y vuelve a pedir los datos sin salir al menú principal.
+- **Listar Proveedores de alojamiento / Clientes / Guías / Operadores**: muestra el resumen (`mostrarResumen()`) de cada entidad de ese tipo.
+- El listado de **Clientes** incluye además un panel con botones "Filtrar menores de edad" y "Mostrar todos los clientes", que recalculan el contenido del listado sin cerrar el diálogo.
+- **Listar todos los registros**: muestra todas las entidades cargadas, sin importar su tipo.
 
-No hay persistencia: las entidades se mantienen en memoria mientras la aplicación está abierta.
+Los clientes registrados desde la GUI se agregan a la misma colección que alimenta los `.txt`, por lo que aparecen inmediatamente en los listados.
 
 ---
 
 ## Archivos de datos
 
-**tours.txt** — formato CSV separado por `;`:
+Todos los archivos están en `src/main/resources/`, en formato CSV separado por `;`, con un máximo de 5 registros de prueba cada uno.
+
+**tours.txt**
 ```
 nombre;tipo;duracionHoras;precio
 Ruta del Salmón y el Volcán;gastronómico;6;45000
-Navegación Lacustre Llanquihue;lacustre;4;32000
 ```
 
-**clientes.xlsx** — archivo Excel con columnas:
+**clientes.txt** (la dirección es opcional; si falta, el cliente se carga con `direccion = null`)
 ```
-nombre | rut | correo | edad
+nombre;rut;correo;edad;calle;numero;comuna;ciudad;codigoPostal
+Camila Soto Reyes;15678234-3;camila.soto@correo.cl;28;Calle Bulnes;245;Llanquihue;Llanquihue;5610000
+```
+
+**guias.txt**
+```
+nombre;rut;correo;edad;idioma
+Pedro Alarcón Vásquez;17345678-6;pedro.alarcon@llanquihuetour.cl;41;Español
+```
+
+**operadores.txt**
+```
+nombre;rut;correo;edad;tipoVehiculo
+Luis Barría Cárdenas;16543210-K;luis.barria@llanquihuetour.cl;48;Minibús
+```
+
+**alojamientos.txt**
+```
+nombre;rut;correo;edad;nombreAlojamiento
+Marcela Torres Uribe;15987654-3;marcela.torres@llanquihuetour.cl;50;Hostal Volcán Osorno
 ```
 
 ---
@@ -127,8 +141,8 @@ java -jar LlanquhueTourApp-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 **Repositorio GitHub:** https://github.com/yerkodigo/llanquihue-tour
 <br>
-**Fecha de entrega:** 22/06/2026
+**Fecha de entrega:** 19/07/2026
 
 ---
 
-© Duoc UC | Escuela de Informática y Telecomunicaciones | Actividad Sumativa Semana 8
+© Duoc UC | Escuela de Informática y Telecomunicaciones | EFT Evaluación Final Transversal - Semana 9

@@ -9,8 +9,6 @@ public class Persona {
     private int edad;
     private Direccion direccion;
 
-    public Persona() {}
-
     public Persona(String nombre, String rut, String correo, int edad) throws RutException {
         this.nombre = nombre;
         this.rut = Rut.parse(rut);

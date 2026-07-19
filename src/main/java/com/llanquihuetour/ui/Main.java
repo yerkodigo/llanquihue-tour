@@ -13,11 +13,6 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-// NO USADO EN EL FLUJO ACTUAL DEL MODAL (Main.iniciarInterfazGrafica) — evaluar eliminar o integrar.
-// import com.llanquihuetour.data.GestorDatos;
-// import com.llanquihuetour.data.GestorServicios;
-// import java.io.FileNotFoundException;
-
 public class Main {
     public static void main(String[] args) {
         iniciarInterfazGrafica();
@@ -165,7 +160,7 @@ public class Main {
         List<IRegistrable> todosLosRegistros = gestorCargasTxt.getAll();
 
         if (todosLosRegistros.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Aún no hay guías registrados.");
+            JOptionPane.showMessageDialog(null, "Aún no hay registros.");
             return;
         }
 
@@ -174,7 +169,7 @@ public class Main {
             listado.append(registrable.mostrarResumen()).append("\n");
         }
 
-        JOptionPane.showMessageDialog(null, listado.toString(), "Guías turísticos", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, listado.toString(), "Todos los registros", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private static void registrarCliente(GestorCargasTxt gestorCargasTxt) {
@@ -199,110 +194,4 @@ public class Main {
             }
         }
     }
-
-    // NO USADO EN EL FLUJO ACTUAL DEL MODAL (Main.iniciarInterfazGrafica) — evaluar eliminar o integrar.
-    // private static void registrarTour(List<IRegistrable> entidades) {
-    //     String nombre = JOptionPane.showInputDialog("Nombre del tour:");
-    //     if (nombre == null) return;
-    //
-    //     String tipo = JOptionPane.showInputDialog("Tipo del tour (ej: gastronómico, aventura):");
-    //     String duracionTexto = JOptionPane.showInputDialog("Duración en horas:");
-    //     String precioTexto = JOptionPane.showInputDialog("Precio del tour:");
-    //
-    //     try {
-    //         int duracionHoras = Integer.parseInt(duracionTexto);
-    //         double precio = Double.parseDouble(precioTexto);
-    //         Tour tour = new Tour(nombre, tipo, duracionHoras, precio);
-    //         entidades.add(tour);
-    //         JOptionPane.showMessageDialog(null, "Tour registrado:\n" + tour.mostrarResumen());
-    //     } catch (NumberFormatException e) {
-    //         JOptionPane.showMessageDialog(null, "La duración o el precio ingresados no son válidos.", "Error", JOptionPane.ERROR_MESSAGE);
-    //     }
-    // }
-
-    // NO USADO EN EL FLUJO ACTUAL DEL MODAL (Main.iniciarInterfazGrafica) — evaluar eliminar o integrar.
-    // private static void mostrarResumenEntidades(List<IRegistrable> entidades) {
-    //     if (entidades.isEmpty()) {
-    //         JOptionPane.showMessageDialog(null, "Aún no hay entidades registradas.");
-    //         return;
-    //     }
-    //
-    //     StringBuilder resumen = new StringBuilder();
-    //     for (IRegistrable entidad : entidades) {
-    //         resumen.append(entidad.mostrarResumen()).append("\n");
-    //     }
-    //
-    //     JOptionPane.showMessageDialog(null, resumen.toString(), "Resumen de entidades", JOptionPane.INFORMATION_MESSAGE);
-    // }
-
-    // NO USADO EN EL FLUJO ACTUAL DEL MODAL (Main.iniciarInterfazGrafica) — evaluar eliminar o integrar.
-    // private static void visualizacionDeClientes() {
-    //     GestorDatos gestor = new GestorDatos();
-    //
-    //     gestor.cargarDesdeExcel("/clientes.xlsx");
-    //
-    //     System.out.println("*******************************************");
-    //     System.out.println("Todos los clientes:");
-    //     System.out.println("*******************************************");
-    //     gestor.listarClientes();
-    //     System.out.println("\n");
-    //
-    //     int edad = 18;
-    //     System.out.println("*******************************************");
-    //     System.out.println("Clientes mayores de " + edad + " años:");
-    //     System.out.println("*******************************************");
-    //     for (Cliente cliente : gestor.filtrarEdadMayor(edad)) {
-    //         System.out.println("Cliente: " + cliente.getNombre() + " con rut: " + cliente.getRut() + " tiene " + cliente.getEdad() + " años.");
-    //     }
-    //     System.out.println("\n");
-    // }
-
-    // NO USADO EN EL FLUJO ACTUAL DEL MODAL (Main.iniciarInterfazGrafica) — evaluar eliminar o integrar.
-    // private static void mostrarListaTours() {
-    //     try {
-    //         GestorDatos gestor = new GestorDatos();
-    //         List<Tour> listaTours = gestor.buildToursFromFile();
-    //         if (!listaTours.isEmpty()) {
-    //             System.out.println("*********************");
-    //             System.out.println("Lista de Tours: ");
-    //             System.out.println("*********************");
-    // //        1. Muestra todos los elementos de la colección (recorrido)
-    //             listaTours.forEach(tour -> {
-    //                 System.out.println(tour.showInConsole());
-    //             });
-    //             System.out.println("\n");
-    //         }
-    //         //        2. Filtra según una condición (por ejemplo, producción > 1000, tipo == "gastronómico", stock > 0)
-    //         List<Tour> filtradoEconomicos = listaTours.stream().filter(tour -> tour.getPrecio() < 40000).toList();
-    //         List<Tour> filtradoGastronomicos = listaTours.stream().filter(tour -> "gastronómico".equalsIgnoreCase(tour.getTipo().trim())).toList();
-    //
-    //         //        3. Imprime los resultados filtrados
-    //         System.out.println("*********************");
-    //         System.out.println("Tours Económicos: ");
-    //         System.out.println("*********************");
-    //         for (Tour tour : filtradoEconomicos) {
-    //             System.out.println(tour.showInConsole());
-    //         }
-    //         System.out.println("\n");
-    //
-    //         System.out.println("*********************");
-    //         System.out.println("Tours Gastronómicos: ");
-    //         System.out.println("*********************");
-    //         for (Tour tour : filtradoGastronomicos) {
-    //             System.out.println(tour.showInConsole());
-    //         }
-    //
-    //     } catch (FileNotFoundException e) {
-    //         throw new RuntimeException(e);
-    //     }
-    // }
-
-    // NO USADO EN EL FLUJO ACTUAL DEL MODAL (Main.iniciarInterfazGrafica) — evaluar eliminar o integrar.
-    // private static void verListaServicios() {
-    //     List<ServicioTuristico> servicios = GestorServicios.cargaDeServiciosTuristicos();
-    //
-    //     for (ServicioTuristico servicio : servicios) {
-    //         System.out.println(servicio.mostrarInformacion());
-    //     }
-    // }
 }
