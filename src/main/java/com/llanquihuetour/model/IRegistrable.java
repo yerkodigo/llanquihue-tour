@@ -1,5 +1,6 @@
 package com.llanquihuetour.model;
 
-public interface Registrable {
+public interface IRegistrable {
     String mostrarResumen();
+
 }

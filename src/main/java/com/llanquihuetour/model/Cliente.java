@@ -1,48 +1,37 @@
 package com.llanquihuetour.model;
 
+import com.llanquihuetour.exceptions.RutException;
+
 /**
  * Modela un cliente con nombre, RUT, correo y edad
  */
-public class Cliente implements Registrable {
-    private String nombre;
-    private String rut;
-    private String correo;
-    private int edad;
+public class Cliente extends Persona implements IRegistrable {
 
-    public Cliente() {
+    public Cliente(String nombre, String rut, String correo, int edad) throws RutException {
+        super(nombre, rut, correo, edad);
     }
 
-    public Cliente(String nombre, String rut, String correo,  int edad) {
-        this.nombre = nombre;
-        this.rut = rut;
-        this.correo = correo;
-        this.edad = edad;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getRut() {
-        return rut;
-    }
-
-    public int getEdad() {
-        return edad;
+    public Cliente(String nombre, String rut, String correo, int edad, Direccion direccion) throws RutException {
+        super(nombre, rut, correo, edad, direccion);
     }
 
     @Override
     public String toString() {
         return "Cliente{" +
-                "nombre='" + nombre + '\'' +
-                ", rut='" + rut + '\'' +
-                ", correo='" + correo + '\'' +
-                ", edad=" + edad +
+                "nombre='" + this.getNombre() + '\'' +
+                ", rut='" + this.getRut() + '\'' +
+                ", correo='" + this.getCorreo() + '\'' +
+                ", edad=" + this.getEdad() +
+                ", direccion=" + this.getDireccionTexto() +
                 '}';
     }
 
     @Override
     public String mostrarResumen() {
-        return "Nombre: " + this.nombre + ", RUT: " + this.rut + ", Correo: " + this.correo + ", Edad: " + this.edad;
+        return "Nombre: " + this.getNombre() + ", RUT: " + this.getRut() + ", Correo: " + this.getCorreo() + ", Edad: " + this.getEdad() + ", Dirección: " + this.getDireccionTexto();
+    }
+
+    private String getDireccionTexto() {
+        return this.getDireccion() != null ? this.getDireccion().toString() : "Sin dirección";
     }
 }
