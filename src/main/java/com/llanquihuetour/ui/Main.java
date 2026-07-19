@@ -4,14 +4,19 @@ import com.llanquihuetour.data.GestorCargasTxt;
 import com.llanquihuetour.exceptions.RutException;
 import com.llanquihuetour.model.*;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import java.awt.BorderLayout;
+import java.util.ArrayList;
 import java.util.List;
 
 // NO USADO EN EL FLUJO ACTUAL DEL MODAL (Main.iniciarInterfazGrafica) — evaluar eliminar o integrar.
 // import com.llanquihuetour.data.GestorDatos;
 // import com.llanquihuetour.data.GestorServicios;
 // import java.io.FileNotFoundException;
-// import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -42,12 +47,48 @@ public class Main {
             return;
         }
 
+        JTextArea textArea = new JTextArea(15, 60);
+        textArea.setEditable(false);
+        textArea.setText(construirListadoClientes(clientes));
+
+        JButton botonFiltrar = new JButton("Filtrar menores de edad");
+        JButton botonTodos = new JButton("Mostrar todos los clientes");
+
+        botonFiltrar.addActionListener(e -> {
+            List<IRegistrable> menoresDeEdad = new ArrayList<>();
+            for (IRegistrable registrable : clientes) {
+                if (registrable instanceof Cliente cliente && cliente.getEdad() < 18) {
+                    menoresDeEdad.add(registrable);
+                }
+            }
+            textArea.setText(construirListadoClientes(menoresDeEdad));
+        });
+
+        botonTodos.addActionListener(e -> {
+            textArea.setText(construirListadoClientes(clientes));
+        });
+
+        JPanel panelBotones = new JPanel();
+        panelBotones.add(botonFiltrar);
+        panelBotones.add(botonTodos);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(new JScrollPane(textArea), BorderLayout.CENTER);
+        panel.add(panelBotones, BorderLayout.SOUTH);
+
+        JOptionPane.showMessageDialog(null, panel, "Clientes", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    private static String construirListadoClientes(List<IRegistrable> clientes) {
+        if (clientes.isEmpty()) {
+            return "No hay clientes que coincidan.";
+        }
+
         StringBuilder listado = new StringBuilder();
         for (IRegistrable registrable : clientes) {
             listado.append(registrable.mostrarResumen()).append("\n");
         }
-
-        JOptionPane.showMessageDialog(null, listado.toString(), "Clientes", JOptionPane.INFORMATION_MESSAGE);
+        return listado.toString();
     }
 
     private static void getListadoGuias(GestorCargasTxt gestorCargasTxt) {
